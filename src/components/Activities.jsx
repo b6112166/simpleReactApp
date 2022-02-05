@@ -7,7 +7,7 @@
            
             return (
             <div>
-                <input></input> 
+                <input></input> <button className="btn delete-btn" onClick={this.props.onDelete}>-</button>
             </div>
             );
         }

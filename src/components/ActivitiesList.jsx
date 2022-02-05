@@ -11,6 +11,7 @@ class ActivitiesList extends Component {
         ]
      };
 
+
      handleAdd = () =>{
          
          console.log("Add event called for "+ activitiesCounter);
@@ -20,13 +21,26 @@ class ActivitiesList extends Component {
          this.setState(newState);
      }
 
+     handleDelete = id =>{
+        console.log("delete is called for " +id );
+        const newState = this.state;
 
+        newState.activities= this.state.activities.filter(function(value,index,arr){
+            
+            return (value.id !== id);
+        })
+
+
+        
+        this.setState(newState);
+        activitiesCounter--;
+    }
 
     render() { 
         return (
             <React.Fragment>
                 {this.state.activities.map( activity=> 
-                    <Actvities key={activity.id} />
+                    <Actvities key={activity.id} id = {activity.id} onDelete={()=>this.handleDelete(activity.id)}/>
                     
                 )}
 
