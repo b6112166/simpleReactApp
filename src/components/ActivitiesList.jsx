@@ -10,6 +10,9 @@ class ActivitiesList extends Component {
         activities:[
             {id:1 , content:""}
         ]
+        ,
+        editMode:false
+
      };
 
 
@@ -19,13 +22,13 @@ class ActivitiesList extends Component {
          activitiesCounter++;
          id_counter++;
          const newState = this.state;
-         newState.activities.push({id:id_counter});
+         newState.activities.push({id:id_counter , content:""});
          this.setState(newState);
      }
 
      handleDelete = id =>{
         console.log("delete is called for " +id );
-        const newState = this.state;
+        var newState = this.state;
 
         newState.activities= this.state.activities.filter(function(value,index,arr){
             
@@ -33,7 +36,8 @@ class ActivitiesList extends Component {
         })
 
 
-        
+        //shift all ids
+       
         this.setState(newState);
         activitiesCounter--;
     }
@@ -42,17 +46,31 @@ class ActivitiesList extends Component {
         
     }
 
+    handleEditMode(){
+        var newState = this.state;
+        newState.editMode = ! this.state.editMode;
+        this.setState(newState)
+    }
+
     render() { 
+        var addButton;
+        var activitiesEditMode = false;
+        if(this.state.editMode ){
+            addButton = <button className='btn add_btn' onClick={()=>this.handleAdd()}>+</button>
+            
+            if(activitiesCounter>1){ // only let user delete if there is more than one actitivies
+                activitiesEditMode =true;
+            }
+        }
+        
         return (
             <React.Fragment>
-                <button className = 'btn save_btn'>Save</button>
+                <button className = 'btn save_btn'>Save</button> <button className = 'btn edit_btn' onClick={()=>this.handleEditMode()}>Edit</button>
                 {this.state.activities.map( activity=> 
-                    <Actvities key={activity.id} id = {activity.id} onUpdate = {()=>this.handleUpdate()} onDelete={()=>this.handleDelete(activity.id)}/>
+                    <Actvities key={activity.id} id = {activity.id} editMode ={activitiesEditMode} onUpdate = {()=>this.handleUpdate()} onDelete={()=>this.handleDelete(activity.id)}/>
                     
                 )}
-
-                <button className='btn add_btn' onClick={()=>this.handleAdd()}>+</button>
-                
+                {addButton}
             </React.Fragment>
         );
     }
