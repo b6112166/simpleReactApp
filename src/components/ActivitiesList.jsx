@@ -3,21 +3,23 @@ import Actvities from './Activities';
 
 
 var activitiesCounter =1;
+var id_counter =1;
 class ActivitiesList extends Component {
     
     state = { 
         activities:[
-            {id:1}
+            {id:1 , content:""}
         ]
      };
 
 
      handleAdd = () =>{
          
-         console.log("Add event called for "+ activitiesCounter);
+         console.log("Add event called for "+ id_counter);
          activitiesCounter++;
+         id_counter++;
          const newState = this.state;
-         newState.activities.push({id:activitiesCounter});
+         newState.activities.push({id:id_counter});
          this.setState(newState);
      }
 
@@ -36,11 +38,16 @@ class ActivitiesList extends Component {
         activitiesCounter--;
     }
 
+    handleUpdate(){
+        
+    }
+
     render() { 
         return (
             <React.Fragment>
+                <button className = 'btn save_btn'>Save</button>
                 {this.state.activities.map( activity=> 
-                    <Actvities key={activity.id} id = {activity.id} onDelete={()=>this.handleDelete(activity.id)}/>
+                    <Actvities key={activity.id} id = {activity.id} onUpdate = {()=>this.handleUpdate()} onDelete={()=>this.handleDelete(activity.id)}/>
                     
                 )}
 

@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 import reportWebVitals from './reportWebVitals';
-import ActivitiesList from './components/ActivitiesList';
 
+import App from './App.js';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ActivitiesList/>
+    <App/>
   </React.StrictMode>,
   document.getElementById('root')
 );
